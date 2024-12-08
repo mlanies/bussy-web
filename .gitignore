@@ -3,3 +3,15 @@ wrangler.toml
 
 # Игнорировать каталог workers-site и его содержимое
 workers-site/
+
+# Игнорировать папку public и её содержимое
+public/
+
+# Игнорировать каталоги и файлы
+data/
+i18n/
+node_modules/
+.DS_Store
+.hugo_build.lock
+package-lock.json
+ya.html
