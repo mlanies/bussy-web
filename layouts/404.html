@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+    <section class="coming_soon d-flex align-items-center">
+        <div class="container d-flex flex-column align-items-center gap-md-4 gap-sm-4 gap-4">
+            <figure><img src="{{ "assets/Images/icon/404.png" | relURL }}" alt="404"></figure>
+            {{ if eq .Lang "ru" }}
+              <h1>404 Ошибка!</h1>
+              <p>Ой, что-то пошло не так...</p>
+              <a href="{{ "/" | relLangURL }}" class="btn_hover">На главную</a>
+            {{ else }}
+              <h1>404 Error!</h1>
+              <p>Uuuupppssss...</p>
+              <a href="{{ "/" | relLangURL }}" class="btn_hover">Home</a>
+            {{ end }}
+        </div>
+    </section>
+    <button onclick="scrollToTop()" id="backToTopBtn" class="btn_hover2">
+        <i class="fa-solid fa-arrow-turn-up"></i>
+    </button>
+
+{{ end }}

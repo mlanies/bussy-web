@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /drafts/
+Disallow: /tags/
+Disallow: /categories/
+Disallow: /archives/
+
+Sitemap: {{ .Site.BaseURL }}sitemap.xml
+RSS: {{ .Site.BaseURL }}index.xml

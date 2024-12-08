@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+    <head>
+        {{ block "head" . }}
+          {{ partial "head.html" . }}
+        {{ end }}
+        <!-- Custom Styles -->
+    </head>
+
+<body>
+    <!-- site-wrapper -->
+    <div>
+        {{ block "header" . }}
+        {{ if eq .Lang "ru" }}
+          {{ partial "header_ru.html" . }}
+        {{ else if eq .Lang "en" }}
+          {{ partial "header_en.html" . }}
+        {{ else }}
+          {{ partial "header_ru.html" . }}
+        {{ end }}
+        {{ end }}
+        
+        <!-- ======== 5.1. hero section ======== -->
+        <section class="banner_blog d-flex align-items-center gap-2 flex-column">
+            <p style="max-width: 90%"> 
+                <a href="{{ "/blog/" | relLangURL }}" style="color: aliceblue;">{{ i18n "news_media" }}</a> / 
+                <span style="color: aliceblue;">{{ .Title }}</span> <!-- Последний элемент некликабельный -->
+            </p>
+        </section>
+        <!-- ======== End of 5.1. hero section ======== -->
+
+        <!-- Blog Content Section -->
+        <section class="section" style="margin-top: 250px;">
+            <h2 class="section-heading" style="visibility: hidden;">Blog Content Section</h2>
+            <!-- Добавлен заголовок для секции -->
+            <div class="container">
+                <article class="row mb-4">
+                    <div class="col-lg-10 mx-auto mb-4">
+                            <h1 class="h2 mb-3" style="color: aliceblue;">{{ .Title }}</h1>
+                        <div class="article-container">
+                            <div class="post-slider">
+                                <img src="{{ .Params.featured_image }}" class="responsive-image" alt="Image of {{ .Title }}">
+                            </div>                            
+                            <div class="post-meta-container">
+                                <ul class="list-inline post-meta mb-3">
+                                    <li class="list-inline-item"><i class="ti-user mr-2"></i>{{ .Site.Params.Author.Name }}</li>
+                                    <li class="list-inline-item">
+                                        {{ i18n "autor_params" }}
+                                        {{ if eq .Params.author "Lanies Maksim" }}
+                                            <a href="/team/mlanies">{{ .Params.author }}</a>
+                                        {{ else if eq .Params.author "Ланиес Максим" }}
+                                            <a href="/team/mlanies">{{ .Params.author }}</a>
+                                        {{ else }}
+                                            {{ .Params.author }}
+                                        {{ end }}
+                                    </li>
+                                                                            
+                                    <!-- Локализованная дата в зависимости от языка -->
+                                    {{ if eq .Lang "ru" }}
+                                        {{ $date := .Date.Format "2 January 2006" }}
+                                        {{ $date = replace $date "January" "Января" }}
+                                        {{ $date = replace $date "February" "Февраля" }}
+                                        {{ $date = replace $date "March" "Марта" }}
+                                        {{ $date = replace $date "April" "Апреля" }}
+                                        {{ $date = replace $date "May" "Мая" }}
+                                        {{ $date = replace $date "June" "Июня" }}
+                                        {{ $date = replace $date "July" "Июля" }}
+                                        {{ $date = replace $date "August" "Августа" }}
+                                        {{ $date = replace $date "September" "Сентября" }}
+                                        {{ $date = replace $date "October" "Октября" }}
+                                        {{ $date = replace $date "November" "Ноября" }}
+                                        {{ $date = replace $date "December" "Декабря" }}
+                                        <li class="list-inline-item">{{ i18n "date" }} {{ $date }}</li>
+                                    {{ else }}
+                                        <li class="list-inline-item">{{ i18n "date" }}: {{ .Date.Format "2 January 2006" }}</li>
+                                    {{ end }}
+        
+<!-- Категории -->
+<li class="list-inline-item">{{ i18n "category" }}
+    {{ if .Params.categories }}
+        {{ $catCount := len .Params.categories }}
+        {{ range $index, $category := .Params.categories }}
+            <a href="{{ "/categories/" | relLangURL }}{{ $category | urlize }}" class="ml-1">{{ $category }}</a>
+            {{ if lt $index (sub $catCount 1) }} | {{ end }}
+        {{ end }}
+    {{ else }}
+        <span>{{ i18n "no_categories" }}</span>
+    {{ end }}
+</li>
+
+
+<!-- Теги -->
+<li class="list-inline-item">{{ i18n "tags" }}:
+    {{ if .Params.tags }}
+        {{ $tagCount := len .Params.tags }}
+        {{ range $index, $tag := .Params.tags }}
+            <a href="{{ "/tags/" | relLangURL }}{{ $tag | urlize }}" class="ml-1">{{ $tag }}</a>
+            {{ if lt $index (sub $tagCount 1) }} | {{ end }}
+        {{ end }}
+    {{ else }}
+        <span>{{ i18n "no_tags" }}</span> <!-- Если нет тегов, выводим альтернативный текст -->
+    {{ end }}
+</li>
+
+
+                                </ul>
+                                <div class="repost-container">
+                                    <ul>
+                                        <div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-title="{{ index (index .Site.Data .Site.Language.Lang).banner "description" }}">
+                                            <a class="a2a_button_telegram"></a>
+                                            <a class="a2a_button_vk"></a>
+                                            <a class="a2a_button_facebook"></a>
+                                            <a class="a2a_button_copy_link"></a>
+                                            <a class="a2a_dd" target="_blank" href="{{ .Permalink }}"></a>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-lg-10 mx-auto">
+                        <div class="article-content">
+                            {{ .Content }}
+                        </div>
+                    </div>
+                </article>
+                <div>
+                    {{ if eq .Lang "ru" }}
+                    <script async src="https://comments.app/js/widget.js?3" data-comments-app-website="lmxTe90p" data-limit="5" data-outlined="1" data-colorful="1" data-dark="1"></script>
+                  {{ else }}
+                  <script async src="https://comments.app/js/widget.js?3" data-comments-app-website="oqZegM9K" data-limit="5" data-outlined="1" data-colorful="1" data-dark="1"></script>
+    
+                  {{ end }}
+                </div>
+            </div>
+
+        </section>
+        
+
+        <!-- Post Navigation Section -->
+        <section class="post-navigation">
+            <h2 class="section-heading" style="visibility: hidden;">Post Navigation Section</h2>
+            <!-- Добавлен заголовок для секции -->
+            <div class="container d-flex justify-content-between">
+                <!-- Предыдущая статья -->
+                {{ if .Prev }}
+                {{ with .Prev }}
+                {{ if not (or (in .Permalink "term") (in .Permalink "privacy")) }}
+                <div class="prev-post d-flex flex-column align-items-start">
+                    <h4 style="color: aliceblue;">{{ i18n "previous_post" }}</h4>
+                    <a href="{{ .Permalink }}" class="d-flex align-items-center">
+                        {{ with .Params.featured_image }}
+                        <img src="{{ . }}" alt="{{ $.Title }}" style="width: 100px; height: auto; margin-right: 10px;">
+                        {{ end }}
+                        <div>
+                            <h5>{{ .Title }}</h5>
+                            {{ if .Summary }}
+                            <p style="font-size: 0.8em;">{{ .Summary }}</p>
+                            {{ else }}
+                            <p style="font-size: 0.8em;">{{ i18n "read_more" }}</p>
+                            {{ end }}
+                        </div>
+                    </a>
+                </div>
+                {{ end }}
+                {{ end }}
+                {{ end }}
+
+                <!-- Следующая статья -->
+                {{ if .Next }}
+                {{ with .Next }}
+                {{ if not (or (in .Permalink "term") (in .Permalink "privacy")) }}
+                <div class="next-post d-flex flex-column align-items-end">
+                    <h4 style="color: aliceblue;">{{ i18n "next_post" }}</h4>
+                    <a href="{{ .Permalink }}" class="d-flex align-items-center">
+                        <div>
+                            <h5>{{ .Title }}</h5>
+                            {{ if .Summary }}
+                            <p style="font-size: 0.8em;">{{ .Summary }}</p>
+                            {{ else }}
+                            <p style="font-size: 0.8em;">{{ i18n "read_more" }}</p>
+                            {{ end }}
+                        </div>
+                        {{ with .Params.featured_image }}
+                        <img src="{{ . }}" alt="{{ $.Title }}" style="width: 100px; height: auto; margin-left: 10px;">
+                        {{ end }}
+                    </a>
+                </div>
+                {{ end }}
+                {{ end }}
+                {{ end }}
+            </div>
+        </section>
+
+        <!-- Related Posts Section -->
+        <section class="related-posts">
+            <h2 class="section-heading" style="visibility: hidden;">Related Posts Section</h2>
+            <!-- Добавлен заголовок для секции -->
+            <h4>{{ i18n "related_posts" }}</h4>
+            <div class="row">
+                {{ range first 3 (where .Site.RegularPages "Params.categories" "intersect" .Params.categories) }}
+                    {{ if ne .Permalink $.Permalink }} <!-- Проверяем, что URL статьи не совпадает с текущей -->
+                    <div class="col-lg-4">
+                        <a href="{{ .Permalink }}">
+                            <img src="{{ .Params.featured_image }}" class="img-fluid" alt="{{ .Title }}" style="height: 150px; object-fit: cover;">
+                            <h5>{{ .Title }}</h5>
+                        </a>
+                    </div>
+                    {{ end }}
+                {{ end }}
+            </div>
+        </section>
+    </div>
+    <!-- end site wrapper -->
+
+
+    {{ block "footer" . }}
+    {{ if eq .Lang "ru" }}
+      {{ partial "footer_ru.html" . }}
+    {{ else if eq .Lang "en" }}
+      {{ partial "footer_en.html" . }}
+    {{ else }}
+      {{ partial "footer_ru.html" . }}
+    {{ end }}
+    {{ end }}
+            <!-- Микроразметка JSON-LD для новостей -->
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "{{ .Title }}",
+      "image": "{{ .Site.BaseURL }}{{ .Params.featured_image | default "/assets/Images/logo/1024x1024.jpg" }}",
+      "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z" }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ .Params.author | default "2GC" }}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "2GC",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ .Site.BaseURL }}assets/Images/logo/1024x1024.jpg"
+        }
+      },
+      "articleBody": "{{ .Params.summary }}"
+    }
+</script>
+<script>
+var a2a_config = a2a_config || {};
+
+a2a_config.thanks = {
+postShare: true,
+ad: true,
+};
+</script>
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+</body>
+
+</html>

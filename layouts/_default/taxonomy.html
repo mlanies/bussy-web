@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+    <head>
+        {{ block "head" . }}
+          {{ partial "head.html" . }}
+        {{ end }}
+      </head>
+<body>
+    {{ block "header" . }}
+    {{ if eq .Lang "ru" }}
+      {{ partial "header_ru.html" . }}
+    {{ else if eq .Lang "en" }}
+      {{ partial "header_en.html" . }}
+    {{ else }}
+      {{ partial "header_ru.html" . }}
+    {{ end }}
+  {{ end }}
+    <main class="taxonomy-body">
+        <!-- Навигационная цепочка -->
+        <nav>
+            <a href="/" style="color: black;">{{ i18n "home" }}</a> / 
+        </nav>
+
+        {{ if eq .Lang "ru" }}
+  <h1>{{ T "tags" }}</h1>
+{{ else if eq .Lang "en" }}
+  <h1>{{ T "tags" }}</h1>
+{{ end }}
+ <!-- Заголовок страницы таксономии -->
+
+ <ul>
+    {{ range .Pages }} <!-- Перебор всех страниц, относящихся к этой таксономии -->
+        <li>
+            
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            <p>{{ .Summary | plainify | truncate 200 }}</p>
+            
+        </li>
+    {{ else }}
+        <li>{{ T "noContent" }}</li> <!-- Локализованное сообщение при отсутствии контента -->
+    {{ end }}
+</ul>
+
+    </main>
+    {{ block "footer" . }}
+    {{ if eq .Lang "ru" }}
+      {{ partial "footer_ru.html" . }}
+    {{ else if eq .Lang "en" }}
+      {{ partial "footer_en.html" . }}
+    {{ else }}
+      {{ partial "footer_ru.html" . }}
+    {{ end }}
+  {{ end }}
+</body>
+</html>

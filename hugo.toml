@@ -1,0 +1,21 @@
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[sitemap]
+  filename = "sitemap.xml"
+  priority = 0.5
+  changefreq = "monthly"
+  canonifyURLs = true
+
+[permalinks]
+  blog = "blog/:slug/"
+  docs = "/:slug/"
+  default = "blog/:slug/"
+
+[outputs]
+  home = ["HTML", "RSS", "Sitemap", "RobotsTXT"]  # Оставляем RSS только для главной страницы
+  section = ["HTML", "Sitemap", "RobotsTXT"]  # Убираем RSS для разделов
+  taxonomy = ["HTML", "Sitemap", "RobotsTXT"]  # Убираем RSS для таксономий
+  taxonomyTerm = ["HTML", "Sitemap", "RobotsTXT"]  # Убираем RSS для терминов таксономий

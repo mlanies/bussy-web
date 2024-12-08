@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+    <head>
+        {{ block "head" . }}
+          {{ partial "head.html" . }}
+        {{ end }}
+    </head>
+    
+<body>
+    {{ block "header" . }}
+    {{ if eq .Lang "ru" }}
+      {{ partial "header_ru.html" . }}
+    {{ else if eq .Lang "en" }}
+      {{ partial "header_en.html" . }}
+    {{ else }}
+      {{ partial "header_ru.html" . }}
+    {{ end }}
+  {{ end }}
+    
+    <main class="taxonomy-body">
+        <section>
+            <!-- Навигационная цепочка -->
+            <nav>
+                <a href="/" style="color: black;">{{ i18n "home" }}</a> / 
+                <span style="color: black;">{{ .Title | default "Карта сайта" }}</span>
+            </nav>
+
+            <!-- Заголовок страницы -->
+            <h1>{{ .Title | default "Карта сайта" }}</h1>
+        </section>
+
+        <!-- Основной контент страницы карты сайта -->
+        <section class="sitemap-content">
+
+            {{ .Content }}
+
+            <!-- Добавление категорий (без тегов) -->
+            <h2>{{ i18n "categories" }}</h2>
+            <ul>
+                {{ range $term, $pages := .Site.Taxonomies.categories }}
+                    <li>
+                        <strong>{{ $term }}</strong>
+                        <ul>
+                            {{ range $pages }}
+                                <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                            {{ end }}
+                        </ul>
+                    </li>
+                {{ end }}
+            </ul>
+
+        </section>
+    </main>
+
+    {{ block "footer" . }}
+    {{ if eq .Lang "ru" }}
+      {{ partial "footer_ru.html" . }}
+    {{ else if eq .Lang "en" }}
+      {{ partial "footer_en.html" . }}
+    {{ else }}
+      {{ partial "footer_ru.html" . }}
+    {{ end }}
+  {{ end }}
+  
+</body>
+</html>

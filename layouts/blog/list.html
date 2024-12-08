@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+
+<head>
+    {{ block "head" . }}
+    {{ partial "head.html" . }}
+    {{ end }}
+    <link href="/assets/css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/news_list.css">
+</head>
+
+<body>
+    <div>
+        {{ block "header" . }}
+        {{ if eq .Lang "ru" }}
+        {{ partial "header_ru.html" . }}
+        {{ else if eq .Lang "en" }}
+        {{ partial "header_en.html" . }}
+        {{ else }}
+        {{ partial "header_ru.html" . }}
+        {{ end }}
+        {{ end }}
+
+        <!-- Banner -->
+        <section class="banner_blog d-flex align-items-center gap-2 flex-column">
+            <h1>{{ i18n "news_media" }}</h1>
+        </section>
+
+        <!-- Blog Post Section -->
+        <section class="blog" style="margin-top: 250px;">
+            <div class="container d-flex align-items-start gap-5">
+
+                <!-- Основное содержимое -->
+                <div class="main-content">
+                    <div class="text-center">
+                        <h2 style="color: aliceblue; margin: 70px;">{{ i18n "all_publications" }}</h2>
+                    </div>
+
+                    <!-- News Card Blocks -->
+                    <div class="news-slider__wrp">
+                        {{ range .Pages }}
+                        <div class="card" data-categories="{{ delimit .Params.categories " ," }}">
+                            <figure>
+                                {{ $month := .Date.Format "January" }}
+                                {{ $day := .Date.Format "2" }}
+                                {{ $year := .Date.Format "2006" }}
+                                {{ $translatedMonth := i18n $month }}
+
+                                <div class="news-date">{{ $day }} {{ $translatedMonth }} {{ $year }}</div>
+
+                                {{ if .Params.author }}
+                                <div class="news-author">
+                                    <p>{{ T "autor_params" }}
+                                        {{ if eq .Params.author "Lanies Maksim" }}
+                                        <a href="/team/mlanies">{{ .Params.author }}</a>
+                                        {{ else if eq .Params.author "Ланиес Максим" }}
+                                        <a href="/team/mlanies">{{ .Params.author }}</a>
+                                        {{ else }}
+                                        {{ .Params.author }}
+                                        {{ end }}
+                                    </p>
+                                </div>
+                                {{ end }}
+
+                                {{ if .Params.featured_image }}
+                                <a href="{{ .Permalink }}">
+                                    <img height="200" src="{{ .Params.featured_image }}" alt="{{ .Title }}">
+                                </a>
+                                {{ else }}
+                                <a href="{{ .Permalink }}">
+                                    <img height="200" src="/assets/Images/logo/1024x1024.jpg" alt="{{ .Title }}">
+                                </a>
+                                {{ end }}
+                            </figure>
+                            <div class="news__title">{{ .Title }}</div>
+                            <p class="news__txt">{{ .Params.summary }}</p>
+                            <div>{{ T "category" }}
+                                <ul class="list-inline">
+                                    {{ $count := len .Params.categories }}
+                                    {{ range $index, $category := .Params.categories }}
+                                    <li class="list-inline-item">
+                                        <a href="{{ "/categories/" | relLangURL }}{{ $category | urlize }}"
+                                            class="ml-1">
+                                            {{ $category }}
+                                        </a>
+                                        {{ if lt $index (sub $count 1) }} | {{ end }}
+                                    </li>
+                                    {{ end }}
+                                    <li>
+                                        <div class="social-buttons">
+                                            <div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-title="{{ index (index .Site.Data .Site.Language.Lang).banner "description" }}">
+                                                <a class="a2a_button_telegram"></a>
+                                                <a class="a2a_button_vk"></a>
+                                                <a class="a2a_button_facebook"></a>
+                                                <a class="a2a_button_copy_link"></a>
+                                                <a class="a2a_dd" target="_blank" href="{{ .Permalink }}"></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <br>
+                            <div class="button-wrapper"
+                                style="display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                                <a href="{{ .Permalink }}" class="button_new" style="margin-top: auto;">{{ i18n
+                                    "read_more" }}</a>
+                            </div>
+
+                        </div>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    {{ block "footer" . }}
+    {{ if eq .Lang "ru" }}
+    {{ partial "footer_ru.html" . }}
+    {{ else if eq .Lang "en" }}
+    {{ partial "footer_en.html" . }}
+    {{ else }}
+    {{ partial "footer_ru.html" . }}
+    {{ end }}
+    {{ end }}
+    <script>
+        function filterByCategory(category) {
+            var buttons = document.querySelectorAll('.category-button');
+            buttons.forEach(function (button) {
+                button.classList.remove('active');
+            });
+    
+            var activeButton = document.querySelector('[data-category="' + category + '"]');
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+    
+            var articles = document.querySelectorAll('.blog .card');
+            articles.forEach(function (article) {
+                var articleCategories = article.getAttribute('data-categories').split(',');
+                articleCategories = articleCategories.map(function (cat) { return cat.trim().toLowerCase(); });
+    
+                if (category === 'all' || articleCategories.includes(category.toLowerCase())) {
+                    article.style.display = 'block';
+                } else {
+                    article.style.display = 'none';
+                }
+            });
+        }
+    
+        function showAllArticles() {
+            filterByCategory('all');
+        }
+    </script>
+    <script>
+        var a2a_config = a2a_config || {};
+        
+        a2a_config.thanks = {
+            postShare: true,
+            ad: true,
+        };
+        </script>
+    <script async src="https://static.addtoany.com/menu/page.js"></script>
+</body>
+
+</html>

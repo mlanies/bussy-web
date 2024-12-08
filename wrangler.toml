@@ -1,0 +1,13 @@
+name = "salon-heir"  # Уникальное имя проекта для английского сайта
+main = "workers-site/index.js"
+compatibility_date = "2024-09-08"
+type = "webpack"
+
+account_id = "073ae0130b7cee5e55a1ac1a335431a8"  # Замените на ваш Cloudflare Account ID
+workers_dev = false  # Используем пользовательский домен
+
+[site]
+bucket = "./public/" 
+
+[env.production]
+USER_TOKEN = "53111512763861157daeeda3bd8d821f" 

@@ -1,0 +1,10 @@
+<h1>{{ i18n "timeline" }}</h1>
+<ul class="timeline">
+    {{ range .Pages }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+            <p>{{ .Params.description }}</p>
+            <p><small>{{ .Date.Format "02 January 2006" }}</small></p>
+        </li>
+    {{ end }}
+</ul>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+<head>
+    {{ partial "head.html" . }}
+</head>
+<body>
+
+  {{ if eq .Lang "ru" }}
+    {{ partial "header_ru.html" . }}
+  {{ end }}
+  
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  
+  {{ block "footer" . }}
+  {{ if eq .Lang "ru" }}
+    {{ partial "footer_ru.html" . }}
+  {{ end }}
+  {{ end }}
+
+ 
+</body>
+</html>

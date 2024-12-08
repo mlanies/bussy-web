@@ -1,0 +1,5 @@
+# Игнорировать файл wrangler.toml
+wrangler.toml
+
+# Игнорировать каталог workers-site и его содержимое
+workers-site/
