@@ -8,6 +8,3 @@ workers_dev = false  # Используем пользовательский д�
 
 [site]
 bucket = "./public/" 
-
-[env.production]
-USER_TOKEN = "53111512763861157daeeda3bd8d821f" 

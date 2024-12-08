@@ -63,7 +63,9 @@ async function handleWebhook(event) {
 
 // Функция для отправки сообщений в Telegram
 async function sendMessage(chatId, text, replyMarkup) {
-  const url = `https://api.telegram.org/bot8094793137:AAFguvFMO0-1gb8F2z7sobPFuoVsFgg12Hc/sendMessage`; // Убедитесь, что заменили на ваш токен
+  const userToken = USER_TOKEN;  // Получаем токен из переменной окружения
+
+  const url = `https://api.telegram.org/bot${userToken}/sendMessage`;
 
   const response = await fetch(url, {
     method: 'POST',
