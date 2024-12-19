@@ -2405,7 +2405,7 @@ img {
 }
 
 .icon-circle-md {
-	padding: 10px;
+	padding: 10%;
 	width: 48px;
 	height: 48px;
 }
@@ -8577,7 +8577,7 @@ html.rd-navbar-fixed-linked .page {
 .rd-navbar-aside.rd-navbar-static .rd-navbar-toggle {
 	position: absolute;
 	right: 0;
-	top: 50%;
+	top: 46%;
 	transform: translateY(-50%);
 	display: block;
 	z-index: 1102;
